@@ -1,0 +1,186 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amsthm}
+\usepackage{mathtools}
+\usepackage{xcolor}
+\usepackage{mathpartir}
+
+% Rules from Chapter I in https://arxiv.org/pdf/2212.11082.pdf 
+
+\renewcommand{\.}{\hskip 0.7pt}
+\renewcommand{\d}{\;\vdash\,}
+\renewcommand{\r}{\!\.\rightarrow\!}
+\DeclareMathOperator{\type}{\,type}
+
+\begin{document}
+
+%MLTT rule:
+%$$\inferrule
+%{\Gamma \d a : A \\ \Gamma \d f : A \r B}
+%{\Gamma \d f(a) : B}
+%$$
+%
+%MLTT rule:
+%$$\inferrule
+%{\Gamma \d a : A}
+%{\Gamma,\, x:A \d (a = x) \type}
+%$$
+
+\section{Inference rules}
+
+\subsection{Formation of contexts, types, and their elements}
+
+MLTT rule:
+$$\inferrule
+{\Gamma,\, x:A \d B(x) \type}
+{\Gamma \d A \type}
+$$
+MLTT rule:
+$$\inferrule
+{\Gamma \d A \equiv B \type}
+{\Gamma \d A \type}
+$$
+MLTT rule:
+$$\inferrule
+{\Gamma \d A \equiv B \type}
+{\Gamma \d B \type}
+$$
+MLTT rule:
+$$\inferrule
+{\Gamma \d a:A}
+{\Gamma \d A \type}
+$$
+MLTT rule:
+$$\inferrule
+{\Gamma \d a \equiv b : A}
+{\Gamma \d A \type}
+$$
+MLTT rule:
+$$\inferrule
+{\Gamma \d a \equiv b : A}
+{\Gamma \d B \type}
+$$
+
+\subsection{Judgemental equality is an equivalence relation}
+
+MLTT rule:% (reflexivity on types):
+$$\inferrule
+{\Gamma \d A \type}
+{\Gamma \d A \equiv A \type}
+$$
+MLTT rule:% (symmetry on types):
+$$\inferrule
+{\Gamma \d A \equiv B \type}
+{\Gamma \d B \equiv A \type}
+$$
+MLTT rule:% (transitivity on types):
+$$\inferrule
+{\Gamma \d A \equiv B \type \\ \Gamma \d B \equiv C \type}
+{\Gamma \d A \equiv C \type}
+$$
+MLTT rule:% (reflexivity on elements):
+$$\inferrule
+{\Gamma \d a:A}
+{\Gamma \d a \equiv a:A}
+$$
+MLTT rule:% (symmetry on elements):
+$$\inferrule
+{\Gamma \d a \equiv b:A}
+{\Gamma \d b \equiv a:A}
+$$
+MLTT rule:% (transitivity on elements):
+$$\inferrule
+{\Gamma \d a \equiv b:A \\ \Gamma \d b \equiv c:A}
+{\Gamma \d a \equiv c:A}
+$$
+
+\subsection{Variable conversion}
+
+MLTT rule:
+$$\inferrule
+{\Gamma \d A \equiv A' \type \\ \Gamma,\, x:A,\, \Delta \d B(x) \type}
+{\Gamma,\, x:A',\, \Delta \d B(x) \type}
+$$
+MLTT rule:
+$$\inferrule
+{\Gamma \d A \equiv A' \type \\ \Gamma,\, x:A,\, \Delta \d \mathcal{J}}
+{\Gamma,\, x:A',\, \Delta \d \mathcal{J}}
+$$
+
+\subsection{Substitution}
+
+MLTT rule:
+$$\inferrule
+{\Gamma \d a:A \\ \Gamma,\, x:A,\, \Delta \d \mathcal{J}}
+{\Gamma,\, \Delta[a/x] \d \mathcal{J}[a/x]}
+\;S
+$$
+MLTT rule:
+$$\inferrule
+{\Gamma \d a \equiv a':A \\ \Gamma,\, x:A,\, \Delta \d B \type}
+{\Gamma,\, \Delta[a/x] \d B[a/x] \equiv B[a'/x] \type}
+$$
+MLTT rule:
+$$\inferrule
+{\Gamma \d a \equiv a':A \\ \Gamma,\, x:A,\, \Delta \d b:B}
+{\Gamma,\, \Delta[a/x] \d b[a/x] \equiv b[a'/x] : B[a/x]}
+$$
+
+\subsection{Weakening}
+
+MLTT rule:
+$$\inferrule
+{\Gamma \d A \type \\ \Gamma,\, \Delta \d \mathcal{J}}
+{\Gamma,\, x:A,\, \Delta \d \mathcal{J}}
+\;W
+$$
+MLTT rule:
+$$\inferrule
+{\Gamma \d A \type \\ \Gamma \d B \type}
+{\Gamma,\, x:A \d B \type}
+\;W
+$$
+
+\subsection{The generic elements}
+
+MLTT rule:% (variable):
+$$\inferrule
+{\Gamma \d A \type}
+{\Gamma,\, x:A \d x:A}
+\;\delta
+$$
+
+\subsection{Manipulating variables}
+
+Derived rule:
+$$\inferrule
+{\Gamma,\, x:A,\, \Delta \d \mathcal{J}}
+{\Gamma,\, x':A,\, \Delta[x'/x] \d \mathcal{J}[x'/x]}
+\;x'/x
+$$
+Derived rule:
+$$\inferrule
+{\Gamma \d B \type \\ \Gamma,\, x:A,\, y:B,\, \Delta \d \mathcal{J}}
+{\Gamma,\, y:B,\, x:A,\, \Delta \d \mathcal{J}}
+$$
+
+\section{Dependent function types}
+
+\subsection{$\Pi$ formation}
+
+MLTT rule:
+$$\inferrule
+{\Gamma,\, x:A \d B(x) \type}
+{\Gamma \d \Pi_{(x:A)} B(x) \type}
+\;\Pi
+$$
+MLTT rule:
+$$\inferrule
+{\Gamma \d A \equiv A' \type \\ \Gamma,\, x:A \d B(x) \equiv B'(x) \type}
+{\Gamma \d \Pi_{(x:A)} B(x) \equiv \Pi_{(x:A')} B'(x) \type}
+\;\Pi\textup{-eq}
+$$
+
+\end{document}
