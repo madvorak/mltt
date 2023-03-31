@@ -15,6 +15,9 @@
 \newcommand{\N}{\mathbb{N}}
 \DeclareMathOperator{\s}{succ}
 \DeclareMathOperator{\ind}{ind}
+\DeclareMathOperator{\add}{add}
+\DeclareMathOperator{\addz}{add-zero}
+\DeclareMathOperator{\adds}{add-succ}
 
 \begin{document}
 
@@ -57,12 +60,12 @@ $$
 MLTT rule:
 $$\inferrule
 {\Gamma \d a \equiv b\.\!:\!A}
-{\Gamma \d A \type}
+{\Gamma \d a\!:\!A}
 $$
 MLTT rule:
 $$\inferrule
 {\Gamma \d a \equiv b\.\!:\!A}
-{\Gamma \d B \type}
+{\Gamma \d b\.\!:\!A}
 $$
 
 \subsection{Judgemental equality is an equivalence relation}
@@ -113,6 +116,8 @@ $$
 
 \subsection{Substitution}
 
+Metasyntactic notation (used in many places):
+$$t[a/x] := t \textup{ with all occurences of } x \textup{ replaced by } a$$
 MLTT rule:
 $$\inferrule
 {\Gamma \d a\!:\!A \\ \Gamma,\, x\!:\!A,\, \Delta \d \mathcal{J}}
@@ -356,11 +361,47 @@ $$\inferrule
 {\circledast \\ \Gamma \d p_0 : P(0_\N) \\ \Gamma \d p_S : \Pi_{(n:\N)} \left( P(n) \r P(\s_\N(n)) \right) }
 {\Gamma,\, n\!\.:\!\.\N \d \ind_\N(p_0, p_S, \s_\N(n)) \equiv p_S(n, \ind_\N(p_0, p_S, n)) : P(\s_\N(n))}
 $$
-For example (I just derived):
-$$\inferrule
-{\circledast \\ \Gamma \d p_0 : P(0_\N) \\ \Gamma \d p_S : \Pi_{(n:\N)} \left( P(n) \r P(\s_\N(n)) \right) }
-{\Gamma \d \ind_\N(p_0, p_S, \s_\N(0_\N)) \equiv p_S(0_\N, p_0) : P(\s_\N(0_\N))}
-$$
+%For example (I just derived):
+%$$\inferrule
+%{\circledast \\ \Gamma \d p_0 : P(0_\N) \\ \Gamma \d p_S : \Pi_{(n:\N)} \left( P(n) \r P(\s_\N(n)) \right) }
+%{\Gamma \d \ind_\N(p_0, p_S, \s_\N(0_\N)) \equiv p_S(0_\N, p_0) : P(\s_\N(0_\N))}
+%$$
 
+\subsection{Addition}
+
+Defined rule:
+$$\inferrule
+{~}
+{m : \N \d \addz_\N(m) : \N}
+$$
+Defined rule:
+$$\inferrule
+{~}
+{m : \N \d \addz_\N(m) \equiv m : \N}
+$$
+Defined rule:
+$$\inferrule
+{~}
+{m : \N \d \adds_\N(m) : \N \r \N \r \N}
+$$
+Defined rule:
+$$\inferrule
+{~}
+{m : \N \d \adds_\N(m) \equiv \lambda n \.. \s_\N : \N \r \N \r \N}
+$$
+Defined rule:
+$$\inferrule
+{~}
+{m : \N \d \add_\N(m) : \N \r \N}
+$$
+Defined rule:
+$$\inferrule
+{~}
+{m : \N \d \add_\N(m) \equiv \ind_\N(\addz_\N(m), \adds_\N(m)) : \N \r \N}
+$$
+Remark:
+$$m + 0_\N \equiv \add_\N(m, 0_\N) \equiv m$$
+Remark:
+$$m + \s_\N(n) \equiv \add_\N(m, \s_\N(n)) \equiv \s_\N(m+n)$$
 
 \end{document}
