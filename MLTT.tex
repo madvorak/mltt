@@ -2,9 +2,6 @@
 
 \usepackage{amsmath}
 \usepackage{amssymb}
-\usepackage{amsthm}
-\usepackage{mathtools}
-\usepackage{xcolor}
 \usepackage{mathpartir}
 
 % Rules from Chapter I in https://arxiv.org/pdf/2212.11082.pdf 
@@ -314,6 +311,8 @@ $$
 
 \section{The natural numbers}
 
+\subsection{Basic}
+
 Defined rule:
 $$\inferrule
 {~}
@@ -330,21 +329,37 @@ $$\inferrule
 {~}
 {\d \s_\N : \N}
 $$
-(skipping the 3-line-to-1-line contruction --- I don't want to use it)\\
+
+\subsection{Induction principle}
+
+Metasyntactic shortcut (only for this document):
+$$\circledast \quad := \quad \Gamma,\, n\!\.:\!\.\N \d P(n) \type$$
 Defined rule:
 $$\inferrule
-{\Gamma,\, n\!\.:\!\.\N \d P(n) \type}
-{\Gamma \d \ind_\N : P(0_\N) \r \left( \Pi_{(n:\N)} \left( P(n) \r P(\s_\N(n)) \right) \right) \r \Pi_{(n:\N)} P(n)}
+{\circledast \\ \Gamma \d p_0 : P(0_\N) \\ \Gamma \d p_S : \Pi_{(n:\N)} \left( P(n) \r P(\s_\N(n)) \right) }
+{\Gamma \d \ind_\N(p_0, p_S) : \Pi_{(n:\N)} P(n)}
 \;\N\textup{-ind}
 $$
-Are the following two rules necessary? Are they derived rule from the above?
+%Defined rule:
+%$$\inferrule
+%{\Gamma,\, n\!\.:\!\.\N \d P(n) \type}
+%{\Gamma \d \ind_\N : P(0_\N) \r \left( \Pi_{(n:\N)} \left( P(n) \r P(\s_\N(n)) \right) \right) \r \Pi_{(n:\N)} P(n)}
+%\;\N\textup{-ind}
+%$$
+Defined rule:
 $$\inferrule
-{\dots}
+{\circledast \\ \Gamma \d p_0 : P(0_\N) \\ \Gamma \d p_S : \Pi_{(n:\N)} \left( P(n) \r P(\s_\N(n)) \right) }
 {\Gamma \d \ind_\N(p_0, p_S, 0_\N) \equiv p_0 : P(0_\N)}
 $$
+Defined rule:
 $$\inferrule
-{\dots}
+{\circledast \\ \Gamma \d p_0 : P(0_\N) \\ \Gamma \d p_S : \Pi_{(n:\N)} \left( P(n) \r P(\s_\N(n)) \right) }
 {\Gamma,\, n\!\.:\!\.\N \d \ind_\N(p_0, p_S, \s_\N(n)) \equiv p_S(n, \ind_\N(p_0, p_S, n)) : P(\s_\N(n))}
+$$
+For example (I just derived):
+$$\inferrule
+{\circledast \\ \Gamma \d p_0 : P(0_\N) \\ \Gamma \d p_S : \Pi_{(n:\N)} \left( P(n) \r P(\s_\N(n)) \right) }
+{\Gamma \d \ind_\N(p_0, p_S, \s_\N(0_\N)) \equiv p_S(0_\N, p_0) : P(\s_\N(0_\N))}
 $$
 
 
