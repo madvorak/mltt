@@ -13,6 +13,11 @@
 \renewcommand{\d}{\;\vdash\,}
 \renewcommand{\r}{\!\.\rightarrow\!}
 \DeclareMathOperator{\type}{\,type}
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\comp}{comp}
+\newcommand{\N}{\mathbb{N}}
+\DeclareMathOperator{\s}{succ}
+\DeclareMathOperator{\ind}{ind}
 
 \begin{document}
 
@@ -34,7 +39,7 @@
 
 MLTT rule:
 $$\inferrule
-{\Gamma,\, x:A \d B(x) \type}
+{\Gamma,\, x\!:\!A \d B(x) \type}
 {\Gamma \d A \type}
 $$
 MLTT rule:
@@ -49,17 +54,17 @@ $$\inferrule
 $$
 MLTT rule:
 $$\inferrule
-{\Gamma \d a:A}
+{\Gamma \d a\!:\!A}
 {\Gamma \d A \type}
 $$
 MLTT rule:
 $$\inferrule
-{\Gamma \d a \equiv b : A}
+{\Gamma \d a \equiv b\.\!:\!A}
 {\Gamma \d A \type}
 $$
 MLTT rule:
 $$\inferrule
-{\Gamma \d a \equiv b : A}
+{\Gamma \d a \equiv b\.\!:\!A}
 {\Gamma \d B \type}
 $$
 
@@ -82,50 +87,50 @@ $$\inferrule
 $$
 MLTT rule:% (reflexivity on elements):
 $$\inferrule
-{\Gamma \d a:A}
-{\Gamma \d a \equiv a:A}
+{\Gamma \d a\!:\!A}
+{\Gamma \d a \equiv a\!:\!A}
 $$
 MLTT rule:% (symmetry on elements):
 $$\inferrule
-{\Gamma \d a \equiv b:A}
-{\Gamma \d b \equiv a:A}
+{\Gamma \d a \equiv b\.\!:\!A}
+{\Gamma \d b \equiv a\!:\!A}
 $$
 MLTT rule:% (transitivity on elements):
 $$\inferrule
-{\Gamma \d a \equiv b:A \\ \Gamma \d b \equiv c:A}
-{\Gamma \d a \equiv c:A}
+{\Gamma \d a \equiv b\.\!:\!A \\ \Gamma \d b \equiv c\.\!:\!A}
+{\Gamma \d a \equiv c\.\!:\!A}
 $$
 
 \subsection{Variable conversion}
 
 MLTT rule:
 $$\inferrule
-{\Gamma \d A \equiv A' \type \\ \Gamma,\, x:A,\, \Delta \d B(x) \type}
-{\Gamma,\, x:A',\, \Delta \d B(x) \type}
+{\Gamma \d A \equiv A' \type \\ \Gamma,\, x\!:\!A,\, \Delta \d B(x) \type}
+{\Gamma,\, x\!:\!A',\, \Delta \d B(x) \type}
 $$
 MLTT rule:
 $$\inferrule
-{\Gamma \d A \equiv A' \type \\ \Gamma,\, x:A,\, \Delta \d \mathcal{J}}
-{\Gamma,\, x:A',\, \Delta \d \mathcal{J}}
+{\Gamma \d A \equiv A' \type \\ \Gamma,\, x\!:\!A,\, \Delta \d \mathcal{J}}
+{\Gamma,\, x\!:\!A',\, \Delta \d \mathcal{J}}
 $$
 
 \subsection{Substitution}
 
 MLTT rule:
 $$\inferrule
-{\Gamma \d a:A \\ \Gamma,\, x:A,\, \Delta \d \mathcal{J}}
+{\Gamma \d a\!:\!A \\ \Gamma,\, x\!:\!A,\, \Delta \d \mathcal{J}}
 {\Gamma,\, \Delta[a/x] \d \mathcal{J}[a/x]}
 \;S
 $$
 MLTT rule:
 $$\inferrule
-{\Gamma \d a \equiv a':A \\ \Gamma,\, x:A,\, \Delta \d B \type}
-{\Gamma,\, \Delta[a/x] \d B[a/x] \equiv B[a'/x] \type}
+{\Gamma \d a \equiv a'\!:\!A \\ \Gamma,\, x\!:\!A,\, \Delta \d B \type}
+{\Gamma,\, \Delta[a/x] \d B[a/x] \equiv B[a'\.\!/x] \type}
 $$
 MLTT rule:
 $$\inferrule
-{\Gamma \d a \equiv a':A \\ \Gamma,\, x:A,\, \Delta \d b:B}
-{\Gamma,\, \Delta[a/x] \d b[a/x] \equiv b[a'/x] : B[a/x]}
+{\Gamma \d a \equiv a'\!:\!A \\ \Gamma,\, x\!:\!A,\, \Delta \d b\.\!:\!B}
+{\Gamma,\, \Delta[a/x] \d b[a/x] \equiv b[a'\.\!/x] : B[a/x]}
 $$
 
 \subsection{Weakening}
@@ -133,22 +138,22 @@ $$
 MLTT rule:
 $$\inferrule
 {\Gamma \d A \type \\ \Gamma,\, \Delta \d \mathcal{J}}
-{\Gamma,\, x:A,\, \Delta \d \mathcal{J}}
+{\Gamma,\, x\!:\!A,\, \Delta \d \mathcal{J}}
 \;W
 $$
 MLTT rule:
 $$\inferrule
 {\Gamma \d A \type \\ \Gamma \d B \type}
-{\Gamma,\, x:A \d B \type}
+{\Gamma,\, x\!:\!A \d B \type}
 \;W
 $$
 
-\subsection{The generic elements}
+\subsection{Generic elements}
 
 MLTT rule:% (variable):
 $$\inferrule
 {\Gamma \d A \type}
-{\Gamma,\, x:A \d x:A}
+{\Gamma,\, x\!:\!A \d x\!:\!A}
 \;\delta
 $$
 
@@ -156,31 +161,191 @@ $$
 
 Derived rule:
 $$\inferrule
-{\Gamma,\, x:A,\, \Delta \d \mathcal{J}}
-{\Gamma,\, x':A,\, \Delta[x'/x] \d \mathcal{J}[x'/x]}
+{\Gamma,\, x\!:\!A,\, \Delta \d \mathcal{J}}
+{\Gamma,\, x'\!:\!A,\, \Delta[x'\.\!/x] \d \mathcal{J}[x'\.\!/x]}
 \;x'/x
 $$
 Derived rule:
 $$\inferrule
-{\Gamma \d B \type \\ \Gamma,\, x:A,\, y:B,\, \Delta \d \mathcal{J}}
-{\Gamma,\, y:B,\, x:A,\, \Delta \d \mathcal{J}}
+{\Gamma \d B \type \\ \Gamma,\, x\!:\!A,\, y\!:\!B,\, \Delta \d \mathcal{J}}
+{\Gamma,\, y\!:\!B,\, x\!:\!A,\, \Delta \d \mathcal{J}}
 $$
 
-\section{Dependent function types}
+\section{$\Pi$ types}
 
-\subsection{$\Pi$ formation}
+\subsection{Dependent functions}
+
+\subsubsection{$\Pi$ formation}
 
 MLTT rule:
 $$\inferrule
-{\Gamma,\, x:A \d B(x) \type}
+{\Gamma,\, x\!:\!A \d B(x) \type}
 {\Gamma \d \Pi_{(x:A)} B(x) \type}
 \;\Pi
 $$
 MLTT rule:
 $$\inferrule
-{\Gamma \d A \equiv A' \type \\ \Gamma,\, x:A \d B(x) \equiv B'(x) \type}
+{\Gamma \d A \equiv A' \type \\ \Gamma,\, x\!:\!A \d B(x) \equiv B'(x) \type}
 {\Gamma \d \Pi_{(x:A)} B(x) \equiv \Pi_{(x:A')} B'(x) \type}
 \;\Pi\textup{-eq}
 $$
+
+\subsubsection{$\Pi$ introduction}
+
+MLTT rule:
+$$\inferrule
+{\Gamma,\, x\!:\!A \d b(x) : B(x)}
+{\Gamma \d \lambda x \..\. b(x) : \Pi_{(x:A)} B(x)}
+\;\lambda
+$$
+MLTT rule:
+$$\inferrule
+{\Gamma,\, x\!:\!A \d b(x) \equiv b'(x) : B(x)}
+{\Gamma \d \lambda x \..\. b(x) \,\equiv\, \lambda x \..\. b'(x) : \Pi_{(x:A)} B(x)}
+\;\lambda\textup{-eq}
+$$
+
+\subsubsection{$\Pi$ elimination}
+
+MLTT rule:
+$$\inferrule
+{\Gamma \d f : \Pi_{(x:A)} B(x)}
+{\Gamma,\, x\!:\!A \d f(x) : B(x)}
+\;\textup{ev}
+$$
+MLTT rule:
+$$\inferrule
+{\Gamma \d f \equiv f' \!\.: \Pi_{(x:A)} B(x)}
+{\Gamma,\, x\!:\!A \d f(x) \equiv f'(x) : B(x)}
+\;\textup{ev-eq}
+$$
+
+\subsubsection{$\Pi$ computation}
+
+MLTT rule:
+$$\inferrule
+{\Gamma,\, x\!:\!A \d b(x) : B(x)}
+{\Gamma,\, x\!:\!A \d (\lambda y . b(y))(x) \.\equiv\. b(x) : B(x)}
+\;\beta
+$$
+MLTT rule:
+$$\inferrule
+{\Gamma \d f : \Pi_{(x:A)} B(x)}
+{\Gamma \d \lambda x \..\. f(x) \,\equiv\, f : \Pi_{(x:A)} B(x)}
+\;\eta
+$$
+
+\subsection{Ordinary functions}
+
+\subsubsection{Basic}
+
+%$$\inferrule
+%{\Gamma \d A \type \\ \Gamma \d B \type}
+%{\Gamma \d A \r B \coloneq \Pi_{(x:A)} B \type}
+%$$
+Defined rule:
+$$\inferrule
+{\Gamma \d A \type \\ \Gamma \d B \type}
+{\Gamma \d A \r B \type}
+\;\rightarrow
+$$
+Defined rule:
+$$\inferrule
+{\Gamma \d A \type \\ \Gamma \d B \type}
+{\Gamma \d A \r B \.\equiv\. \Pi_{(x:A)} B \type}
+$$
+Derived rule:
+$$\inferrule
+{\Gamma \d B \type \\ \Gamma,\, x\!:\!A \d b(x) : B(x)}
+{\Gamma \d \lambda x \..\. b(x) : A \r B}
+\;\lambda
+$$
+Derived rule:
+$$\inferrule
+{\Gamma \d f : A \r B}
+{\Gamma,\, x\!:\!A \d f(x) : B}
+\;\textup{ev}
+$$
+Derived rule:
+$$\inferrule
+{\Gamma \d B \type \\ \Gamma,\, x\!:\!A \d b(x) : B}
+{\Gamma,\, x\!:\!A \d (\lambda y . b(y))(x) \.\equiv\. b(x) : B}
+\;\beta
+$$
+Derived rule:
+$$\inferrule
+{\Gamma \d f : A \r B}
+{\Gamma \d \lambda x \..\. f(x) \,\equiv\, f : A \r B}
+\;\eta
+$$
+
+\subsubsection{Identity}
+
+Defined rule:
+$$\inferrule
+{\Gamma \d A \type}
+{\Gamma \d \id_A : A \r A}
+$$
+Defined rule:
+$$\inferrule
+{\Gamma \d A \type \\ \Gamma \d B \type}
+{\Gamma \d \id_A \.\equiv\. \lambda x .\. x : A \r A}
+$$
+
+\subsubsection{Composition}
+
+Defined rule:
+$$\inferrule
+{\Gamma \d A \type \\ \Gamma \d B \type \\ \Gamma \d C \type}
+{\Gamma \d \comp : (B \r C) \r (A \r B) \r (A \r C)}
+$$
+Defined rule:
+$$\inferrule
+{\Gamma \d A \type \\ \Gamma \d B \type \\ \Gamma \d C \type}
+{\Gamma \d \comp \equiv \lambda g .\. \lambda f .\. \lambda x .\. g(f(x)) : (B \r C) \r (A \r B) \r (A \r C)}
+$$
+Remark:
+$$g \circ f \equiv \comp(g,f) \equiv \lambda x.\. g(f(x)) $$
+Derived rule:
+$$\inferrule
+{\Gamma \d f : A \r B \\ \Gamma \d g : B \r C \\ \Gamma \d h : C \!\rightarrow\! D}
+{\Gamma \d (h \circ g) \circ f \,\equiv\, h \circ (g \circ f) : A \r D}
+$$
+
+\section{The natural numbers}
+
+Defined rule:
+$$\inferrule
+{~}
+{\d \N \type}
+\;\N\textup{-form}
+$$
+Defined rule:
+$$\inferrule
+{~}
+{\d 0_\N : \N}
+$$
+Defined rule:
+$$\inferrule
+{~}
+{\d \s_\N : \N}
+$$
+(skipping the 3-line-to-1-line contruction --- I don't want to use it)\\
+Defined rule:
+$$\inferrule
+{\Gamma,\, n\!\.:\!\.\N \d P(n) \type}
+{\Gamma \d \ind_\N : P(0_\N) \r \left( \Pi_{(n:\N)} \left( P(n) \r P(\s_\N(n)) \right) \right) \r \Pi_{(n:\N)} P(n)}
+\;\N\textup{-ind}
+$$
+Are the following two rules necessary? Are they derived rule from the above?
+$$\inferrule
+{\dots}
+{\Gamma \d \ind_\N(p_0, p_S, 0_\N) \equiv p_0 : P(0_\N)}
+$$
+$$\inferrule
+{\dots}
+{\Gamma,\, n\!\.:\!\.\N \d \ind_\N(p_0, p_S, \s_\N(n)) \equiv p_S(n, \ind_\N(p_0, p_S, n)) : P(\s_\N(n))}
+$$
+
 
 \end{document}
