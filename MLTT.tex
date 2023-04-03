@@ -315,8 +315,8 @@ $$\inferrule
 {\Gamma \d A \type \\ \Gamma \d B \type \\ \Gamma \d C \type}
 {\Gamma \d \comp \equiv \lambda g .\. \lambda f .\. \lambda x .\. g(f(x)) : (B \r C) \r (A \r B) \r (A \r C)}
 $$
-Remark:
-$$g \circ f \equiv \comp(g,f) \equiv \lambda x.\. g(f(x)) $$
+Convention:
+$$g \circ f \quad := \quad \comp(g,f) \,\equiv\, \lambda x.\. g(f(x)) $$
 Derived rule:
 $$\inferrule
 {\Gamma \d f : A \r B \\ \Gamma \d g : B \r C \\ \Gamma \d h : C \!\rightarrow\! D}
@@ -523,7 +523,7 @@ $$\inferrule
 {\Gamma,\, x\!:\!A \d B(x) \type}
 {\Gamma \d\, \proj_2 \,\equiv\, \lambda (x,y) \..\. y : \Pi_{\left( p \,:\, \Sigma_{(x:A)} B(x) \right)} B(\proj_1(p))}
 $$
-TODO many rules about dependent pairs are missing (hopefully, none of them is needed for the homework.
+Disclaimer: Many rules about dependent pairs are missing (hopefully, none of them is needed for the homework.
 
 \subsubsection{Ordinary pairs}
 
