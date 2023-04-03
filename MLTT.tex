@@ -64,12 +64,12 @@ $$
 MLTT rule:
 $$\inferrule
 {\Gamma \d a \equiv b\.\!:\!A}
-{\Gamma \d a\.\!:\!A}
+{\Gamma \d a\.\!:\!\.A}
 $$
 MLTT rule:
 $$\inferrule
 {\Gamma \d a \equiv b\.\!:\!A}
-{\Gamma \d b:\!A}
+{\Gamma \d b:\!\.A}
 $$
 
 \subsection{Judgemental equality is an equivalence relation}
@@ -120,7 +120,7 @@ $$
 Derived rule:
 $$\inferrule
 {\Gamma \d A \equiv A' \type \\ \Gamma \d a\!:\!A}
-{\Gamma \d a\!:\!A'}
+{\Gamma \d a\.\!:\!\.A'}
 $$
 
 \subsection{Substitution}
@@ -303,7 +303,7 @@ $$\inferrule
 {\Gamma \d \id_A \.\equiv\. \lambda x .\. x : A \r A}
 $$
 
-\subsubsection{Composition}
+\subsubsection{Function composition}
 
 MLTT rule:
 $$\inferrule
@@ -346,7 +346,7 @@ $$
 
 \subsection{Induction principle}
 
-Convention:
+Convention (used in many places):
 $$ f(x,y) \quad := \quad f(x)(y) \;\equiv\; (f(x))(y) $$
 Metasyntactic shortcut (only for this document):
 $$\textup{\textcircledP} \quad := \quad \Gamma,\, n\!\.:\!\.\N \d P(n) \type$$
@@ -450,7 +450,7 @@ $$\inferrule
 $$
 MLTT rule:
 $$\inferrule
-{\Gamma \d A \type \\ \Gamma \d B \type \\ \Gamma,\, x\!\.:\!\.A\!+\!B \d P(x) \type}
+{\Gamma \d A \type \\ \Gamma \d B \type \\ \Gamma,\, x:\!\.A\!+\!B \d P(x) \type}
 {\Gamma \d \ind_+ : \left( \Pi_{(x:A)} P(\inl(x)) \right) \rightarrow \left( \Pi_{(y:B)} P(\inr(y)) \right) \rightarrow \left( \Pi_{(z:A+B)} P(z) \right)}
 \smallskip
 $$
