@@ -19,6 +19,7 @@
 \DeclareMathOperator{\add}{add}
 \DeclareMathOperator{\addz}{add-zero}
 \DeclareMathOperator{\adds}{add-succ}
+\DeclareMathOperator{\exfalso}{ex-falso}
 \DeclareMathOperator{\inl}{inl}
 \DeclareMathOperator{\inr}{inr}
 \DeclareMathOperator{\proj}{pr}
@@ -415,7 +416,64 @@ $$m + 0_\N \equiv \add_\N(m, 0_\N) \equiv m$$
 Remark:
 $$m + \s_\N(n) \equiv \add_\N(m, \s_\N(n)) \equiv \s_\N(m+n)$$
 
-\section{Inductive types for\dots}
+\newpage
+\section{More inductive types}
+
+\subsection{The unit type}
+
+MLTT rule:
+$$\inferrule
+{~}
+{\d \mathbf{1} \type}
+$$
+MLTT rule:
+$$\inferrule
+{~}
+{\d \bigstar : \mathbf{1}}
+$$
+MLTT rule:
+$$\inferrule
+{\Gamma,\, x\!:\!\mathbf{1} \d P(x) \type}
+{\Gamma \d \ind_\mathbf{1} : P(\bigstar) \rightarrow \Pi_{(x:\mathbf{1})}P(x)}
+$$
+MLTT rule:
+$$\inferrule
+{\Gamma,\, x\!:\!\mathbf{1} \d P(x) \type \\ \Gamma \d p : P(\bigstar)}
+{\Gamma \d \ind_\mathbf{1}(p,\bigstar) \equiv p : P(\bigstar)}
+$$
+Derived rule:
+$$\inferrule
+{\Gamma \d A \type}
+{\Gamma \d \ind_\mathbf{1} : A \r (\mathbf{1} \r A)}
+$$
+Derived rule:
+$$\inferrule
+{\Gamma \d A \type}
+{\Gamma \d\. \ind_\mathbf{1} \,\equiv\, \lambda a \..\. \lambda x \..\. a : A \r (\mathbf{1} \r A)}
+$$
+
+\subsection{The empty type}
+
+MLTT rule:
+$$\inferrule
+{~}
+{\d \emptyset \type}
+$$
+MLTT rule:
+$$\inferrule
+{\Gamma,\, x\!:\!\.\emptyset \d P(x) \type}
+{\Gamma \d \ind_\emptyset : \Pi_{(x:\emptyset)}P(x)}
+$$
+MLTT rule:
+$$\inferrule
+{\Gamma \d A \type}
+{\Gamma \d \exfalso : \emptyset \rightarrow A}
+$$
+MLTT rule:
+$$\inferrule
+{\Gamma \d A \type}
+{\Gamma \d \exfalso \equiv \ind_\emptyset : \emptyset \rightarrow A}
+$$
 
 \subsection{Negation}
 
@@ -538,7 +596,7 @@ $$
 MLTT rule:
 $$\inferrule
 {\Gamma \d A \type \\ \Gamma \d B \type \\ \Gamma,\, x\!:\!A,\, y\!:\!B \d P(x,y) \type}
-{\Gamma,\, g \!:\! \Pi_{(x:A)}\Pi_{(y:B)} P(x,y),\: (x,y) \!\.:\!\. A \!\times\! B \d\, \ind_\times(g,(x,y)) \,\equiv\, g(x,y) :  P(z) }
+{\Gamma,\, g \!:\! \Pi_{(x:A)}\Pi_{(y:B)} P(x,y),\: (x,y) \!\.:\!\. A \!\times\! B \d\, \ind_\times(g,(x,y)) \,\equiv\, g(x,y) \!\.:\!\.  P(x,y) }
 $$
 
 \end{document}
