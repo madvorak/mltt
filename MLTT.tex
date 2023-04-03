@@ -114,6 +114,11 @@ $$\inferrule
 {\Gamma \d A \equiv A' \type \\ \Gamma,\, x\!:\!A,\, \Delta \d \mathcal{J}}
 {\Gamma,\, x\!:\!A',\, \Delta \d \mathcal{J}}
 $$
+Derived rule:
+$$\inferrule
+{\Gamma \d A \equiv A' \type \\ \Gamma \d a\!:\!A}
+{\Gamma \d a\!:\!A'}
+$$
 
 \subsection{Substitution}
 
@@ -246,13 +251,13 @@ $$
 %{\Gamma \d A \type \\ \Gamma \d B \type}
 %{\Gamma \d A \r B \coloneq \Pi_{(x:A)} B \type}
 %$$
-Defined rule:
+MLTT rule:
 $$\inferrule
 {\Gamma \d A \type \\ \Gamma \d B \type}
 {\Gamma \d A \r B \type}
 \;\rightarrow
 $$
-Defined rule:
+MLTT rule:
 $$\inferrule
 {\Gamma \d A \type \\ \Gamma \d B \type}
 {\Gamma \d A \r B \.\equiv\. \Pi_{(x:A)} B \type}
@@ -282,14 +287,14 @@ $$\inferrule
 \;\eta
 $$
 
-\subsubsection{Identity}
+\subsubsection{Identity function}
 
-Defined rule:
+MLTT rule:
 $$\inferrule
 {\Gamma \d A \type}
 {\Gamma \d \id_A : A \r A}
 $$
-Defined rule:
+MLTT rule:
 $$\inferrule
 {\Gamma \d A \type \\ \Gamma \d B \type}
 {\Gamma \d \id_A \.\equiv\. \lambda x .\. x : A \r A}
@@ -297,12 +302,12 @@ $$
 
 \subsubsection{Composition}
 
-Defined rule:
+MLTT rule:
 $$\inferrule
 {\Gamma \d A \type \\ \Gamma \d B \type \\ \Gamma \d C \type}
 {\Gamma \d \comp : (B \r C) \r (A \r B) \r (A \r C)}
 $$
-Defined rule:
+MLTT rule:
 $$\inferrule
 {\Gamma \d A \type \\ \Gamma \d B \type \\ \Gamma \d C \type}
 {\Gamma \d \comp \equiv \lambda g .\. \lambda f .\. \lambda x .\. g(f(x)) : (B \r C) \r (A \r B) \r (A \r C)}
@@ -319,18 +324,18 @@ $$
 
 \subsection{Basic}
 
-Defined rule:
+MLTT rule:
 $$\inferrule
 {~}
 {\d \N \type}
 \;\N\textup{-form}
 $$
-Defined rule:
+MLTT rule:
 $$\inferrule
 {~}
 {\d 0_\N : \N}
 $$
-Defined rule:
+MLTT rule:
 $$\inferrule
 {~}
 {\d \s_\N : \N}
@@ -340,24 +345,24 @@ $$
 
 Metasyntactic shortcut (only for this document):
 $$\textup{\textcircledP} \quad := \quad \Gamma,\, n\!\.:\!\.\N \d P(n) \type$$
-Defined rule:
+MLTT rule:
 $$\inferrule
 {\textup{\textcircledP} \\ \Gamma \d p_0 : P(0_\N) \\ \Gamma \d p_S : \Pi_{(n:\N)} \left( P(n) \r P(\s_\N(n)) \right) }
 {\Gamma \d \ind_\N(p_0, p_S) : \Pi_{(n:\N)} P(n)}
 \;\N\textup{-ind}
 $$
-%Defined rule:
+%MLTT rule:
 %$$\inferrule
 %{\Gamma,\, n\!\.:\!\.\N \d P(n) \type}
 %{\Gamma \d \ind_\N : P(0_\N) \r \left( \Pi_{(n:\N)} \left( P(n) \r P(\s_\N(n)) \right) \right) \r \Pi_{(n:\N)} P(n)}
 %\;\N\textup{-ind}
 %$$
-Defined rule:
+MLTT rule:
 $$\inferrule
 {\textup{\textcircledP} \\ \Gamma \d p_0 : P(0_\N) \\ \Gamma \d p_S : \Pi_{(n:\N)} \left( P(n) \r P(\s_\N(n)) \right) }
 {\Gamma \d \ind_\N(p_0, p_S, 0_\N) \equiv p_0 : P(0_\N)}
 $$
-Defined rule:
+MLTT rule:
 $$\inferrule
 {\textup{\textcircledP} \\ \Gamma \d p_0 : P(0_\N) \\ \Gamma \d p_S : \Pi_{(n:\N)} \left( P(n) \r P(\s_\N(n)) \right) }
 {\Gamma,\, n\!\.:\!\.\N \d \ind_\N(p_0, p_S, \s_\N(n)) \equiv p_S(n, \ind_\N(p_0, p_S, n)) : P(\s_\N(n))}
@@ -371,32 +376,32 @@ $$
 \newpage
 \subsection{Addition}
 
-Defined rule:
+MLTT rule:
 $$\inferrule
 {~}
 {m : \N \d \addz_\N(m) : \N}
 $$
-Defined rule:
+MLTT rule:
 $$\inferrule
 {~}
 {m : \N \d \addz_\N(m) \equiv m : \N}
 $$
-Defined rule:
+MLTT rule:
 $$\inferrule
 {~}
 {m : \N \d \adds_\N(m) : \N \r \N \r \N}
 $$
-Defined rule:
+MLTT rule:
 $$\inferrule
 {~}
 {m : \N \d \adds_\N(m) \equiv \lambda n \.. \s_\N : \N \r \N \r \N}
 $$
-Defined rule:
+MLTT rule:
 $$\inferrule
 {~}
 {m : \N \d \add_\N(m) : \N \r \N}
 $$
-Defined rule:
+MLTT rule:
 $$\inferrule
 {~}
 {m : \N \d \add_\N(m) \equiv \ind_\N(\addz_\N(m), \adds_\N(m)) : \N \r \N}
