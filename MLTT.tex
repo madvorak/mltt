@@ -457,12 +457,6 @@ $$
 MLTT rule:
 $$\inferrule
 {\Gamma \d A \type \\ \Gamma \d B \type \\ \Gamma,\, x\!\.:\!\.A\!+\!B \d P(x) \type}
-{\Gamma \d \ind_+ : \left( \Pi_{(x:A)} P(\inl(x)) \right) \rightarrow \left( \Pi_{(y:B)} P(\inr(y)) \right) \rightarrow \left( \Pi_{(z:A+B)} P(z) \right)}
-\smallskip
-$$
-MLTT rule:
-$$\inferrule
-{\Gamma \d A \type \\ \Gamma \d B \type \\ \Gamma,\, x\!\.:\!\.A\!+\!B \d P(x) \type}
 {\Gamma \d \ind_+ \equiv \lambda f . \lambda g . \lambda \inl(x) .\. f(x) : \left( \Pi_{(x:A)} P(\inl(x)) \right) \r \left( \Pi_{(y:B)} P(\inr(y)) \right) \r \left( \Pi_{(z:A+B)} P(z) \right)}
 \smallskip
 $$
@@ -477,8 +471,7 @@ $$\inferrule
 {\Gamma \d A \type \\ \Gamma \d B \type \\ \Gamma \d X \type}
 {\Gamma \d \ind_+ : \left( A \r X \right) \rightarrow \left( B \r Y \right) \rightarrow \left( A\!+\!B \r X \right)}
 $$
-\newpage
-\noindent Derived rule:
+Derived rule:
 $$\inferrule
 {\Gamma \d f : A \r A' \\ \Gamma \d g : B \r B'}
 {\Gamma \d f\!+\!\.g \.:\, A\!+\!B \rightarrow A'\!+\!B'}
