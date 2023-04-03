@@ -2,6 +2,7 @@
 
 \usepackage{amsmath}
 \usepackage{amssymb}
+\usepackage{textcomp}
 \usepackage{mathpartir}
 
 % Rules from Chapter I in https://arxiv.org/pdf/2212.11082.pdf 
@@ -338,10 +339,10 @@ $$
 \subsection{Induction principle}
 
 Metasyntactic shortcut (only for this document):
-$$\circledast \quad := \quad \Gamma,\, n\!\.:\!\.\N \d P(n) \type$$
+$$\textup{\textcircledP} \quad := \quad \Gamma,\, n\!\.:\!\.\N \d P(n) \type$$
 Defined rule:
 $$\inferrule
-{\circledast \\ \Gamma \d p_0 : P(0_\N) \\ \Gamma \d p_S : \Pi_{(n:\N)} \left( P(n) \r P(\s_\N(n)) \right) }
+{\textup{\textcircledP} \\ \Gamma \d p_0 : P(0_\N) \\ \Gamma \d p_S : \Pi_{(n:\N)} \left( P(n) \r P(\s_\N(n)) \right) }
 {\Gamma \d \ind_\N(p_0, p_S) : \Pi_{(n:\N)} P(n)}
 \;\N\textup{-ind}
 $$
@@ -353,12 +354,12 @@ $$
 %$$
 Defined rule:
 $$\inferrule
-{\circledast \\ \Gamma \d p_0 : P(0_\N) \\ \Gamma \d p_S : \Pi_{(n:\N)} \left( P(n) \r P(\s_\N(n)) \right) }
+{\textup{\textcircledP} \\ \Gamma \d p_0 : P(0_\N) \\ \Gamma \d p_S : \Pi_{(n:\N)} \left( P(n) \r P(\s_\N(n)) \right) }
 {\Gamma \d \ind_\N(p_0, p_S, 0_\N) \equiv p_0 : P(0_\N)}
 $$
 Defined rule:
 $$\inferrule
-{\circledast \\ \Gamma \d p_0 : P(0_\N) \\ \Gamma \d p_S : \Pi_{(n:\N)} \left( P(n) \r P(\s_\N(n)) \right) }
+{\textup{\textcircledP} \\ \Gamma \d p_0 : P(0_\N) \\ \Gamma \d p_S : \Pi_{(n:\N)} \left( P(n) \r P(\s_\N(n)) \right) }
 {\Gamma,\, n\!\.:\!\.\N \d \ind_\N(p_0, p_S, \s_\N(n)) \equiv p_S(n, \ind_\N(p_0, p_S, n)) : P(\s_\N(n))}
 $$
 %For example (I just derived):
@@ -367,6 +368,7 @@ $$
 %{\Gamma \d \ind_\N(p_0, p_S, \s_\N(0_\N)) \equiv p_S(0_\N, p_0) : P(\s_\N(0_\N))}
 %$$
 
+\newpage
 \subsection{Addition}
 
 Defined rule:
