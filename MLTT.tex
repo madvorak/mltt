@@ -348,11 +348,9 @@ $$
 
 Convention (used in many places):
 $$ f(x,y) \quad := \quad f(x)(y) \;\equiv\; (f(x))(y) $$
-Metasyntactic shortcut (only for this document):
-$$\textup{\textcircledP} \quad := \quad \Gamma,\, n\!\.:\!\.\N \d P(n) \type$$
 MLTT rule:
 $$\inferrule
-{\textup{\textcircledP} \\ \Gamma \d p_0 : P(0_\N) \\ \Gamma \d p_S : \Pi_{(n:\N)} \left( P(n) \r P(\s_\N(n)) \right) }
+{\Gamma,\, n\!\.:\!\.\N \d P(n) \type \\ \Gamma \d p_0 : P(0_\N) \\ \Gamma \d p_S : \Pi_{(n:\N)} \left( P(n) \r P(\s_\N(n)) \right) }
 {\Gamma \d \ind_\N(p_0, p_S) : \Pi_{(n:\N)} P(n)}
 \;\N\textup{-ind}
 $$
@@ -364,17 +362,17 @@ $$
 %$$
 MLTT rule:
 $$\inferrule
-{\textup{\textcircledP} \\ \Gamma \d p_0 : P(0_\N) \\ \Gamma \d p_S : \Pi_{(n:\N)} \left( P(n) \r P(\s_\N(n)) \right) }
+{\Gamma,\, n\!\.:\!\.\N \d P(n) \type \\ \Gamma \d p_0 : P(0_\N) \\ \Gamma \d p_S : \Pi_{(n:\N)} \left( P(n) \r P(\s_\N(n)) \right) }
 {\Gamma \d \ind_\N(p_0, p_S, 0_\N) \equiv p_0 : P(0_\N)}
 $$
 MLTT rule:
 $$\inferrule
-{\textup{\textcircledP} \\ \Gamma \d p_0 : P(0_\N) \\ \Gamma \d p_S : \Pi_{(n:\N)} \left( P(n) \r P(\s_\N(n)) \right) }
+{\Gamma,\, n\!\.:\!\.\N \d P(n) \type \\ \Gamma \d p_0 : P(0_\N) \\ \Gamma \d p_S : \Pi_{(n:\N)} \left( P(n) \r P(\s_\N(n)) \right) }
 {\Gamma,\, n\!\.:\!\.\N \d \ind_\N(p_0, p_S, \s_\N(n)) \equiv p_S(n, \ind_\N(p_0, p_S, n)) : P(\s_\N(n))}
 $$
 %Example (not in the textbook):
 %$$\inferrule
-%{\circledast \\ \Gamma \d p_0 : P(0_\N) \\ \Gamma \d p_S : \Pi_{(n:\N)} \left( P(n) \r P(\s_\N(n)) \right) }
+%{\Gamma,\, n\!\.:\!\.\N \d P(n) \type \\ \Gamma \d p_0 : P(0_\N) \\ \Gamma \d p_S : \Pi_{(n:\N)} \left( P(n) \r P(\s_\N(n)) \right) }
 %{\Gamma \d \ind_\N(p_0, p_S, \s_\N(0_\N)) \equiv p_S(0_\N, p_0) : P(\s_\N(0_\N))}
 %$$
 
@@ -456,8 +454,20 @@ $$\inferrule
 $$
 MLTT rule:
 $$\inferrule
-{\Gamma \d A \type \\ \Gamma \d B \type \\ \Gamma,\, x\!\.:\!\.A\!+\!B \d P(x) \type}
-{\Gamma \d \ind_+ \equiv \lambda f . \lambda g . \lambda \inl(x) .\. f(x) : \left( \Pi_{(x:A)} P(\inl(x)) \right) \r \left( \Pi_{(y:B)} P(\inr(y)) \right) \r \left( \Pi_{(z:A+B)} P(z) \right)}
+{\Gamma \d A \type \\ \Gamma \d B \type \\ \Gamma,\, z\!\.:\!\.A\!+\!B \d P(z) \type \\ \Gamma \d f : \Pi_{(x:A)} P(\inl(x)) \\ \Gamma \d g : \Pi_{(y:B)} P(\inr(y)) \\ \Gamma \d a\.\!:\!A}
+{\Gamma \d\, \ind_+(f, g, \inl(a)) \,\equiv\, f(a) : P(\inl(a))}
+\smallskip
+$$
+MLTT rule?
+$$\inferrule
+{\Gamma \d A \type \\ \Gamma \d B \type \\ \Gamma,\, z\!\.:\!\.A\!+\!B \d P(z) \type \\ \Gamma \d f : \Pi_{(x:A)} P(\inl(x)) \\ \Gamma \d g : \Pi_{(y:B)} P(\inr(y))}
+{\Gamma,\, a\!:\!A \d\, \ind_+(f, g, \inl(a)) \,\equiv\, f(a) : P(\inl(a))}
+\smallskip
+$$
+MLTT rule!
+$$\inferrule
+{\Gamma \d A \type \\ \Gamma \d B \type \\ \Gamma,\, z\!\.:\!\.A\!+\!B \d P(z) \type}
+{\Gamma,\, f : \Pi_{(x:A)} P(\inl(x)),\, g : \Pi_{(y:B)} P(\inr(y)),\, a\!:\!A \d\, \ind_+(f, g, \inl(a)) \,\equiv\, f(a) : P(\inl(a))}
 \smallskip
 $$
 MLTT rule:
