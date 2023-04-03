@@ -19,6 +19,9 @@
 \DeclareMathOperator{\add}{add}
 \DeclareMathOperator{\addz}{add-zero}
 \DeclareMathOperator{\adds}{add-succ}
+\DeclareMathOperator{\inl}{inl}
+\DeclareMathOperator{\inr}{inr}
+\DeclareMathOperator{\proj}{pr}
 
 \begin{document}
 
@@ -61,12 +64,12 @@ $$
 MLTT rule:
 $$\inferrule
 {\Gamma \d a \equiv b\.\!:\!A}
-{\Gamma \d a\!:\!A}
+{\Gamma \d a\.\!:\!A}
 $$
 MLTT rule:
 $$\inferrule
 {\Gamma \d a \equiv b\.\!:\!A}
-{\Gamma \d b\.\!:\!A}
+{\Gamma \d b:\!A}
 $$
 
 \subsection{Judgemental equality is an equivalence relation}
@@ -343,6 +346,8 @@ $$
 
 \subsection{Induction principle}
 
+Convention:
+$$ f(x,y) \quad := \quad f(x)(y) \;\equiv\; (f(x))(y) $$
 Metasyntactic shortcut (only for this document):
 $$\textup{\textcircledP} \quad := \quad \Gamma,\, n\!\.:\!\.\N \d P(n) \type$$
 MLTT rule:
@@ -367,13 +372,12 @@ $$\inferrule
 {\textup{\textcircledP} \\ \Gamma \d p_0 : P(0_\N) \\ \Gamma \d p_S : \Pi_{(n:\N)} \left( P(n) \r P(\s_\N(n)) \right) }
 {\Gamma,\, n\!\.:\!\.\N \d \ind_\N(p_0, p_S, \s_\N(n)) \equiv p_S(n, \ind_\N(p_0, p_S, n)) : P(\s_\N(n))}
 $$
-%For example (I just derived):
-%$$\inferrule
-%{\circledast \\ \Gamma \d p_0 : P(0_\N) \\ \Gamma \d p_S : \Pi_{(n:\N)} \left( P(n) \r P(\s_\N(n)) \right) }
-%{\Gamma \d \ind_\N(p_0, p_S, \s_\N(0_\N)) \equiv p_S(0_\N, p_0) : P(\s_\N(0_\N))}
-%$$
+Example (not in the textbook):
+$$\inferrule
+{\circledast \\ \Gamma \d p_0 : P(0_\N) \\ \Gamma \d p_S : \Pi_{(n:\N)} \left( P(n) \r P(\s_\N(n)) \right) }
+{\Gamma \d \ind_\N(p_0, p_S, \s_\N(0_\N)) \equiv p_S(0_\N, p_0) : P(\s_\N(0_\N))}
+$$
 
-\newpage
 \subsection{Addition}
 
 MLTT rule:
@@ -410,5 +414,138 @@ Remark:
 $$m + 0_\N \equiv \add_\N(m, 0_\N) \equiv m$$
 Remark:
 $$m + \s_\N(n) \equiv \add_\N(m, \s_\N(n)) \equiv \s_\N(m+n)$$
+
+\section{Inductive types for\dots}
+
+\subsection{Negation}
+
+MLTT rule:
+$$\inferrule
+{\Gamma \d A \type}
+{\Gamma \d \neg A \type}
+$$
+MLTT rule:
+$$\inferrule
+{\Gamma \d A \type}
+{\Gamma \d \neg A \equiv (A \r \,\emptyset) \type}
+$$
+
+\subsection{Coproducts}
+
+MLTT rule:
+$$\inferrule
+{\Gamma \d A \type \\ \Gamma \d B \type}
+{\Gamma \d A\!+\!B \type}
+$$
+MLTT rule:
+$$\inferrule
+{\Gamma \d A \type \\ \Gamma \d B \type}
+{\Gamma \d \inl : A \rightarrow A\!+\!B}
+$$
+MLTT rule:
+$$\inferrule
+{\Gamma \d A \type \\ \Gamma \d B \type}
+{\Gamma \d \inr : B \rightarrow A\!+\!B}
+\smallskip
+$$
+MLTT rule:
+$$\inferrule
+{\Gamma \d A \type \\ \Gamma \d B \type \\ \Gamma,\, x\!\.:\!\.A\!+\!B \d P(x) \type}
+{\Gamma \d \ind_+ : \left( \Pi_{(x:A)} P(\inl(x)) \right) \rightarrow \left( \Pi_{(y:B)} P(\inr(y)) \right) \rightarrow \left( \Pi_{(z:A+B)} P(z) \right)}
+\smallskip
+$$
+MLTT rule:
+$$\inferrule
+{\Gamma \d A \type \\ \Gamma \d B \type \\ \Gamma,\, x\!\.:\!\.A\!+\!B \d P(x) \type}
+{\Gamma \d \ind_+ : \left( \Pi_{(x:A)} P(\inl(x)) \right) \rightarrow \left( \Pi_{(y:B)} P(\inr(y)) \right) \rightarrow \left( \Pi_{(z:A+B)} P(z) \right)}
+\smallskip
+$$
+MLTT rule:
+$$\inferrule
+{\Gamma \d A \type \\ \Gamma \d B \type \\ \Gamma,\, x\!\.:\!\.A\!+\!B \d P(x) \type}
+{\Gamma \d \ind_+ \equiv \lambda f . \lambda g . \lambda \inl(x) .\. f(x) : \left( \Pi_{(x:A)} P(\inl(x)) \right) \r \left( \Pi_{(y:B)} P(\inr(y)) \right) \r \left( \Pi_{(z:A+B)} P(z) \right)}
+\smallskip
+$$
+MLTT rule:
+$$\inferrule
+{\Gamma \d A \type \\ \Gamma \d B \type \\ \Gamma,\, x\!\.:\!\.A\!+\!B \d P(x) \type}
+{\Gamma \d \ind_+ \equiv \lambda f . \lambda g . \lambda \inr(y) .\. g(y) : \left( \Pi_{(x:A)} P(\inl(x)) \right) \r \left( \Pi_{(y:B)} P(\inr(y)) \right) \r \left( \Pi_{(z:A+B)} P(z) \right)}
+\medskip
+$$
+Derived rule:
+$$\inferrule
+{\Gamma \d A \type \\ \Gamma \d B \type \\ \Gamma \d X \type}
+{\Gamma \d \ind_+ : \left( A \r X \right) \rightarrow \left( B \r Y \right) \rightarrow \left( A\!+\!B \r X \right)}
+$$
+\newpage
+\noindent Derived rule:
+$$\inferrule
+{\Gamma \d f : A \r A' \\ \Gamma \d g : B \r B'}
+{\Gamma \d f\!+\!\.g \.:\, A\!+\!B \rightarrow A'\!+\!B'}
+$$
+Derived rule:
+$$\inferrule
+{\Gamma \d f : A \r A' \\ \Gamma \d g : B \r B'}
+{\Gamma \d\, f\!+\!\.g\. \,\equiv\, \lambda \inl(x) \,.\. \inl(f(x)) : A\!+\!B \rightarrow A'\!+\!B'}
+$$
+Derived rule:
+$$\inferrule
+{\Gamma \d f : A \r A' \\ \Gamma \d g : B \r B'}
+{\Gamma \d\, f\!+\!\.g\. \,\equiv\, \lambda \inr(y) \,.\. \inr(g(y)) : A\!+\!B \rightarrow A'\!+\!B'}
+$$
+
+\subsection{$\Sigma$ types}
+
+\subsubsection{Dependent pairs}
+
+MLTT rule:
+$$\inferrule
+{\Gamma,\, x\!:\!A \d B(x) \type}
+{\Gamma \d \Sigma_{(x:A)} B(x) \type}
+$$
+MLTT rule:
+$$\inferrule
+{\Gamma,\, x\!:\!A \d B(x) \type}
+{\Gamma \d \proj_1 : \left( \Sigma_{(x:A)} B(x) \right) \rightarrow A}
+$$
+MLTT rule:
+$$\inferrule
+{\Gamma,\, x\!:\!A \d B(x) \type}
+{\Gamma \d\, \proj_1 \,\equiv\, \lambda (x,y) \..\. x : \left( \Sigma_{(x:A)} B(x) \right) \r A}
+$$
+MLTT rule:
+$$\inferrule
+{\Gamma,\, x\!:\!A \d B(x) \type}
+{\Gamma \d \proj_2 : \Pi_{\left( p \,:\, \Sigma_{(x:A)} B(x) \right)} B(\proj_1(p))}
+$$
+MLTT rule:
+$$\inferrule
+{\Gamma,\, x\!:\!A \d B(x) \type}
+{\Gamma \d\, \proj_2 \,\equiv\, \lambda (x,y) \..\. y : \Pi_{\left( p \,:\, \Sigma_{(x:A)} B(x) \right)} B(\proj_1(p))}
+$$
+TODO many rules about dependent pairs are missing (hopefully, none of them is needed for the homework.
+
+\subsubsection{Ordinary pairs}
+
+MLTT rule:
+$$\inferrule
+{\Gamma \d A \type \\ \Gamma \d B \type}
+{\Gamma \d A\!\times\!B \type}
+$$
+MLTT rule:
+$$\inferrule
+{\Gamma \d A \type \\ \Gamma \d B \type}
+{\Gamma \d A\!\times\!B \equiv \Sigma_{(x:A)}B \type}
+$$
+MLTT rule:
+$$\inferrule
+{\Gamma \d A \type \\ \Gamma \d B \type \\ \Gamma,\, x\!:\!A,\, y\!:\!B \d P(x,y) \type}
+{\Gamma \d \ind_\times : \left( \Pi_{(x:A)}\Pi_{(y:B)} P(x,y) \right) \rightarrow \left( \Pi_{(z : A \times B)} P(z) \right)}
+$$
+MLTT rule:
+$$\inferrule
+{\Gamma \d A \type \\ \Gamma \d B \type \\ \Gamma,\, x\!:\!A,\, y\!:\!B \d P(x,y) \type}
+{\Gamma \d\, \ind_\times \,\equiv\, \lambda g \..\. \lambda (x,y) \..\. g(x,y) : \left( \Pi_{(x:A)}\Pi_{(y:B)} P(x,y) \right) \r \left( \Pi_{(z : A \times B)} P(z) \right)}
+$$
 
 \end{document}
