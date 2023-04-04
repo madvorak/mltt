@@ -290,6 +290,8 @@ $$\inferrule
 {\Gamma \d \lambda x \..\. f(x) \,\equiv\, f : A \r B}
 \;\eta
 $$
+The symbol $\rightarrow$ is right-associative:
+$$X \rightarrow Y \rightarrow Z \quad := \quad X \rightarrow (Y \rightarrow Z)$$
 
 \subsubsection{Identity function}
 
@@ -317,7 +319,7 @@ $$\inferrule
 {\Gamma \d \comp \equiv \lambda g .\. \lambda f .\. \lambda x .\. g(f(x)) : (B \r C) \r (A \r B) \r (A \r C)}
 $$
 Convention:
-$$g \circ f \quad := \quad \comp(g,f) \,\equiv\, \lambda x.\. g(f(x)) $$
+$$g \.\circ f \quad := \quad \comp(g,f) \,\equiv\, \lambda x.\. g(f(x)) $$
 Derived rule:
 $$\inferrule
 {\Gamma \d f : A \r B \\ \Gamma \d g : B \r C \\ \Gamma \d h : C \!\rightarrow\! D}
@@ -378,6 +380,7 @@ $$
 %{\circledast \\ \Gamma \d p_0 : P(0_\N) \\ \Gamma \d p_S : \Pi_{(n:\N)} \left( P(n) \r P(\s_\N(n)) \right) }
 %{\Gamma \d \ind_\N(p_0, p_S, \s_\N(0_\N)) \equiv p_S(0_\N, p_0) : P(\s_\N(0_\N))}
 %$$
+~
 
 \subsection{Addition}
 
@@ -410,6 +413,7 @@ MLTT rule:
 $$\inferrule
 {~}
 {m : \N \d \add_\N(m) \equiv \ind_\N(\addz_\N(m), \adds_\N(m)) : \N \r \N}
+\medskip
 $$
 Remark:
 $$m + 0_\N \equiv \add_\N(m, 0_\N) \equiv m$$
