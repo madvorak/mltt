@@ -566,7 +566,7 @@ $$
 MLTT rule:
 $$\inferrule
 {\Gamma,\, x\!:\!A \d B(x) \type}
-{\Gamma,\, (x,y) \!:\!\. \Sigma_{(x:A)} B(x) \,\d\, \proj_1((x,y)) \,\equiv\, x : A}
+{\Gamma,\, x\!:\!A,\, y\!:\!B(x) \,\d\, \proj_1((x,y)) \,\equiv\, x : A}
 $$
 MLTT rule:
 $$\inferrule
@@ -576,7 +576,8 @@ $$
 MLTT rule:
 $$\inferrule
 {\Gamma,\, x\!:\!A \d B(x) \type}
-{\Gamma,\, (x,y) \!:\!\. \Sigma_{(x:A)} B(x) \,\d\, \proj_2((x,y)) \,\equiv\, y : B(x)}
+{\Gamma,\, x\!:\!A,\, y\!:\!B(x) \,\d\, \proj_2((x,y)) \,\equiv\, y : B(x)}
+\smallskip
 $$
 Disclaimer: Many rules about dependent pairs are missing (hopefully, none of them is needed for the homework.
 
@@ -600,7 +601,27 @@ $$
 MLTT rule:
 $$\inferrule
 {\Gamma \d A \type \\ \Gamma \d B \type \\ \Gamma,\, x\!:\!A,\, y\!:\!B \d P(x,y) \type}
-{\Gamma,\, g \!:\! \Pi_{(x:A)}\Pi_{(y:B)} P(x,y),\: (x,y) \!\.:\!\. A \!\times\! B \d\, \ind_\times(g,(x,y)) \,\equiv\, g(x,y) \!\.:\!\.  P(x,y) }
+{\Gamma,\, g \!:\!\. \Pi_{(x:A)}\Pi_{(y:B)} P(x,y),\: x\!:\!A,\, y\!:\!B \d\, \ind_\times(g,(x,y)) \,\equiv\, g(x,y) \!\.:\!\.  P(x,y) }
+$$
+Derived rule:
+$$\inferrule
+{\Gamma \d A \type \\ \Gamma \d B \type}
+{\Gamma \d \proj_1 : A\!\times\!\!\.B \rightarrow A}
+$$
+Derived rule:
+$$\inferrule
+{\Gamma \d A \type \\ \Gamma \d B \type}
+{\Gamma,\, x\!:\!A,\, y\!:\!B \,\d\, \proj_1((x,y)) \,\equiv\, x : A}
+$$
+Derived rule:
+$$\inferrule
+{\Gamma \d A \type \\ \Gamma \d B \type}
+{\Gamma \d \proj_2 : A\!\times\!\!\.B \rightarrow B}
+$$
+Derived rule:
+$$\inferrule
+{\Gamma \d A \type \\ \Gamma \d B \type}
+{\Gamma,\, x\!:\!A,\, y\!:\!B \,\d\, \proj_2((x,y)) \,\equiv\, y : B}
 $$
 
 \end{document}
