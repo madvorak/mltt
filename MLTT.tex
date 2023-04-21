@@ -23,6 +23,7 @@
 \DeclareMathOperator{\inl}{inl}
 \DeclareMathOperator{\inr}{inr}
 \DeclareMathOperator{\proj}{pr}
+\DeclareMathOperator{\refl}{refl}
 
 \begin{document}
 
@@ -587,41 +588,73 @@ MLTT rule:
 $$\inferrule
 {\Gamma \d A \type \\ \Gamma \d B \type}
 {\Gamma \d A\!\times\!B \type}
+\smallskip
 $$
 MLTT rule:
 $$\inferrule
 {\Gamma \d A \type \\ \Gamma \d B \type}
 {\Gamma \d A\!\times\!B \equiv \Sigma_{(x:A)}B \type}
+\smallskip
 $$
 MLTT rule:
 $$\inferrule
 {\Gamma \d A \type \\ \Gamma \d B \type \\ \Gamma,\, x\!:\!A,\, y\!:\!B \d P(x,y) \type}
 {\Gamma \d \ind_\times : \left( \Pi_{(x:A)}\Pi_{(y:B)} P(x,y) \right) \rightarrow \left( \Pi_{(z : A \times B)} P(z) \right)}
+\medskip
 $$
 MLTT rule:
 $$\inferrule
 {\Gamma \d A \type \\ \Gamma \d B \type \\ \Gamma,\, x\!:\!A,\, y\!:\!B \d P(x,y) \type}
 {\Gamma,\, g \!:\!\. \Pi_{(x:A)}\Pi_{(y:B)} P(x,y),\: x\!:\!A,\, y\!:\!B \d\, \ind_\times(g,(x,y)) \,\equiv\, g(x,y) \!\.:\!\.  P(x,y) }
+\bigskip
 $$
 Derived rule:
 $$\inferrule
 {\Gamma \d A \type \\ \Gamma \d B \type}
 {\Gamma \d \proj_1 : A\!\times\!\!\.B \rightarrow A}
+\smallskip
 $$
 Derived rule:
 $$\inferrule
 {\Gamma \d A \type \\ \Gamma \d B \type}
 {\Gamma,\, x\!:\!A,\, y\!:\!B \,\d\, \proj_1((x,y)) \,\equiv\, x : A}
+\smallskip
 $$
 Derived rule:
 $$\inferrule
 {\Gamma \d A \type \\ \Gamma \d B \type}
 {\Gamma \d \proj_2 : A\!\times\!\!\.B \rightarrow B}
+\smallskip
 $$
 Derived rule:
 $$\inferrule
 {\Gamma \d A \type \\ \Gamma \d B \type}
 {\Gamma,\, x\!:\!A,\, y\!:\!B \,\d\, \proj_2((x,y)) \,\equiv\, y : B}
+$$
+
+\pagebreak
+\section{Propositional equality}
+
+MLTT rule:
+$$\inferrule
+{\Gamma \d a\!:\!A \\ \Gamma \d b\!:\!A}
+{\Gamma \d a =_A\! b \;\type}
+$$
+MLTT rule:
+$$\inferrule
+{\Gamma \d a\!:\!A}
+{\Gamma \d \refl_a :\: a =_A\! a}
+$$
+MLTT rule:
+$$\inferrule
+{\Gamma,\, x\!:\!A,\, y\!:\!A,\, p:x=_A\!y \d P(x,y,p) \type}
+{\Gamma \d J : \left( \Pi_{(x:A)} P(x,x,\refl_x) \right) \rightarrow \left( \Pi_{(a:A)} \Pi_{(b:A)} \Pi_{(q:\.a=_{\!A} b)} P(a,b,q) \right)}
+\smallskip
+$$
+MLTT rule:
+$$\inferrule
+{\Gamma, x\!\!\.:\!\!A, y\!\!\.:\!\!A,\. p\!\.:\!\.x\!=_{\!\!A}\!\!\.y\. \vdash P\!\.(\!\.x\!\.,\!\.y\!\.,\!\.p\!\.) \type \\ \Gamma \vdash d : \Pi_{(\!x:A\!)} \!P\!\.(\!\.x\!\.,\!\.x\!\.,\!\.\refl_x\!) \\ \Gamma \vdash a\!:\!\!\.A}
+{\Gamma \d J(d,a,a,\refl_a) \equiv d(a) : P(a,a,\refl_a)}
 $$
 
 \end{document}
