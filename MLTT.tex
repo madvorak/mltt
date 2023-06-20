@@ -656,5 +656,10 @@ $$\inferrule
 {\Gamma, x\!\!\.:\!\!A, y\!\!\.:\!\!A,\. p\!\.:\!\.x\!=_{\!\!A}\!\!\.y\. \vdash P\!\.(\!\.x\!\.,\!\.y\!\.,\!\.p\!\.) \type \\ \Gamma \vdash d : \Pi_{(\!x:A\!)} \!P\!\.(\!\.x\!\.,\!\.x\!\.,\!\.\refl_x\!) \\ \Gamma \vdash a\!:\!\!\.A}
 {\Gamma \d J(d,a,a,\refl_a) \equiv d(a) : P(a,a,\refl_a)}
 $$
+Derived rule:
+$$\inferrule
+{\Gamma \d p \,:\, a =_A\! b \\ \Gamma \d a \equiv a'\!:\!A \\ \Gamma \d b\!:\!B}
+{\Gamma \,\d\, p \;:\; a'\!=_A\! b}
+$$
 
 \end{document}
