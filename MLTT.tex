@@ -414,14 +414,22 @@ MLTT rule:
 $$\inferrule
 {~}
 {m : \N \d \add_\N(m) \equiv \ind_\N(\addz_\N(m), \adds_\N(m)) : \N \r \N}
-\medskip
 $$
-Remark:
-$$m + 0_\N \equiv \add_\N(m, 0_\N) \equiv m$$
-Remark:
-$$m + \s_\N(n) \equiv \add_\N(m, \s_\N(n)) \equiv \s_\N(m+n)$$
+Derived rule:
+$$\inferrule
+{\Gamma \d m : \N}
+{\Gamma \d m + 0_\N \equiv m : \N}
+$$
+Derived rule:
+$$\inferrule
+{\Gamma \d m : \N \\ \Gamma \d n : \N}
+{\Gamma \d m + \s_\N(n) \equiv \s_\N(m+n) : \N}
+$$
+%Remark:
+%$$m + 0_\N \equiv \add_\N(m, 0_\N) \equiv m$$
+%Remark:
+%$$m + \s_\N(n) \equiv \add_\N(m, \s_\N(n)) \equiv \s_\N(m+n)$$
 
-\newpage
 \section{More inductive types}
 
 \subsection{The unit type}
@@ -660,6 +668,11 @@ Derived rule:
 $$\inferrule
 {\Gamma \d p \,:\, a =_A\! b \\ \Gamma \d a \equiv a'\!:\!A \\ \Gamma \d b\!:\!B}
 {\Gamma \,\d\, p \;:\; a'\!=_A\! b}
+$$
+Derived rule:
+$$\inferrule
+{\Gamma \d a \equiv b\!:\!A}
+{\Gamma \,\d\, p \;:\; a=_A\! b}
 $$
 
 \end{document}
