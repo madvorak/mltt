@@ -41,7 +41,7 @@
 
 \section{Inference rules}
 
-\subsection{Formation of contexts, types, and their elements}
+\subsection{Presuppositivity}
 
 MLTT rule:
 $$\inferrule
@@ -252,10 +252,6 @@ $$
 
 \subsubsection{Basic}
 
-%$$\inferrule
-%{\Gamma \d A \type \\ \Gamma \d B \type}
-%{\Gamma \d A \r B \coloneq \Pi_{(x:A)} B \type}
-%$$
 MLTT rule:
 $$\inferrule
 {\Gamma \d A \type \\ \Gamma \d B \type}
@@ -360,12 +356,6 @@ $$\inferrule
 {\Gamma \d \ind_\N(p_0, p_S) : \Pi_{(n:\N)} P(n)}
 \;\N\textup{-ind}
 $$
-%MLTT rule:
-%$$\inferrule
-%{\Gamma,\, n\!\.:\!\.\N \d P(n) \type}
-%{\Gamma \d \ind_\N : P(0_\N) \r \left( \Pi_{(n:\N)} \left( P(n) \r P(\s_\N(n)) \right) \right) \r \Pi_{(n:\N)} P(n)}
-%\;\N\textup{-ind}
-%$$
 MLTT rule:
 $$\inferrule
 {\textup{\textcircledP} \\ \Gamma \d p_0 : P(0_\N) \\ \Gamma \d p_S : \Pi_{(n:\N)} \left( P(n) \r P(\s_\N(n)) \right) }
@@ -375,13 +365,8 @@ MLTT rule:
 $$\inferrule
 {\textup{\textcircledP} \\ \Gamma \d p_0 : P(0_\N) \\ \Gamma \d p_S : \Pi_{(n:\N)} \left( P(n) \r P(\s_\N(n)) \right) }
 {\Gamma,\, n\!\.:\!\.\N \d \ind_\N(p_0, p_S, \s_\N(n)) \equiv p_S(n, \ind_\N(p_0, p_S, n)) : P(\s_\N(n))}
+\bigskip
 $$
-%Example (not in the textbook):
-%$$\inferrule
-%{\circledast \\ \Gamma \d p_0 : P(0_\N) \\ \Gamma \d p_S : \Pi_{(n:\N)} \left( P(n) \r P(\s_\N(n)) \right) }
-%{\Gamma \d \ind_\N(p_0, p_S, \s_\N(0_\N)) \equiv p_S(0_\N, p_0) : P(\s_\N(0_\N))}
-%$$
-~
 
 \subsection{Addition}
 
@@ -414,21 +399,18 @@ MLTT rule:
 $$\inferrule
 {~}
 {m : \N \d \add_\N(m) \equiv \ind_\N(\addz_\N(m), \adds_\N(m)) : \N \r \N}
+\smallskip
 $$
-Derived rule:
+Derived rule (sugared):
 $$\inferrule
 {\Gamma \d m : \N}
 {\Gamma \d m + 0_\N \equiv m : \N}
 $$
-Derived rule:
+Derived rule (sugared):
 $$\inferrule
 {\Gamma \d m : \N \\ \Gamma \d n : \N}
 {\Gamma \d m + \s_\N(n) \equiv \s_\N(m+n) : \N}
 $$
-%Remark:
-%$$m + 0_\N \equiv \add_\N(m, 0_\N) \equiv m$$
-%Remark:
-%$$m + \s_\N(n) \equiv \add_\N(m, \s_\N(n)) \equiv \s_\N(m+n)$$
 
 \section{More inductive types}
 
